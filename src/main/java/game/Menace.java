@@ -2,7 +2,50 @@ package game;
 
 public class Menace {
 
+    private Map<String, List<Integer>> botBoards = new HashMap<>();
+    private List<String> curStrings = new ArrayList<>();
+    private List<Integer> curPlaces = new ArrayList<>();
+
+    public void createKey (String s) {
+        List<Integer> pos = new ArrayList<>();
+        List<Integer> places = new ArrayList<>();
+        for (int i=0; i<s.length(); i++) {
+            if(s.charAt(i)=='0') {
+                pos.add(i);
+            }
+        }
+        int l = pos.size();
+        if (l==0) {
+            for (int i=0; i<50; i++) {
+                places.add(-1);
+            }
+            botBoards.put(s, places);
+            return;
+        }
+        for (int i=0; i<50; i++) {
+            int j=0;
+            while (j<l) {
+                places.add(pos.get(j));
+                j++;
+            }
+        }
+        botBoards.put(s, places);
+    }
+
     public int turn(String s) {
-        return 0;
+        Random rand = new Random();
+        if (botBoards.containsKey(s)) {
+            int pos = rand.nextInt(botBoards.get(s).size());
+            return botBoards.get(s).remove(pos);
+        }
+        else {
+            createKey(s);
+            int pos = rand.nextInt(botBoards.get(s).size());
+            return botBoards.get(s).remove(pos);
+        }
+    }
+
+    public void updateMap() {
+
     }
 }
