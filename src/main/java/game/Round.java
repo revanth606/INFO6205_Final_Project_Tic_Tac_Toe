@@ -29,35 +29,57 @@ public class Round {
         }
     }
 
-    public int checkwin() {
+    public int checkwin(int pos, int player) {
+        if (pos == -1) {
+            return 0;
+        }
+        int i = pos/3;
+        int j = pos%3;
+        for (int k=0; k<3; k++) {
+            if (board[i][0] == board[i][1] && board[i][1] == board[i][2]) {
+                return player;
+            }
+            if (board[0][j] == board[1][j] && board[1][j] == board[2][j]) {
+                return player;
+            }
+        }
+        if (Math.abs(i-j)==2 || i==j) {
+            if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[1][1]==player) {
+                return player;
+            }
+            if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[1][1]==player) {
+                return player;
+            }
+        }
         return 0;
     }
 
-    public void start() {
+    public int start() {
         curboard();
-        int i = 0;
-        int c;
+        int p = 1;
+        int c = -1;
         String s = convertBoardtoString(board);
-        while (checkwin()==0) {
-            if (i == 0) {
+        while (checkwin(c, p)==0) {
+            if (p == 1) {
                 c = m.turn(s);
                 if (c==-1) {
-                    break;
+                    return 0;
                 }
                 board[c / 3][c % 3] = 1;
-                i = 1;
+                p = 2;
                 s = convertBoardtoString(board);
             } else {
                 c = h.turn(s);
                 if (c==-1) {
-                    break;
+                    return 0;
                 }
                 board[c / 3][c % 3] = 2;
-                i = 0;
+                p = 1;
                 s = convertBoardtoString(board);
             }
             curboard();
         }
+        return checkwin(c, p);
     }
 
 }

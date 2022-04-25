@@ -1,5 +1,7 @@
 package game;
 
+import java.util.*;
+
 public class Menace {
 
     private Map<String, List<Integer>> botBoards = new HashMap<>();
@@ -45,7 +47,25 @@ public class Menace {
         }
     }
 
-    public void updateMap() {
-
+    public void updateMap(int res) {
+        if (res == 0) {
+            return;
+        } else if (res == 1) {
+            int l = curPlaces.size();
+            for (int i=0; i<l; i++) {
+                botBoards.get(curStrings.get(0)).add(curPlaces.get(0));
+                curPlaces.remove(0);
+                curStrings.remove(0);
+            }
+        } else {
+            int l = curPlaces.size();
+            for (int i=0; i<l; i++) {
+                botBoards.get(curStrings.get(0)).add(curPlaces.get(0));
+                botBoards.get(curStrings.get(0)).add(curPlaces.get(0));
+                botBoards.get(curStrings.get(0)).add(curPlaces.get(0));
+                curPlaces.remove(0);
+                curStrings.remove(0);
+            }
+        }
     }
 }
