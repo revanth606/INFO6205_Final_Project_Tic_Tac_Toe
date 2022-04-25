@@ -37,17 +37,23 @@ public class Menace {
     public int turn(String s) {
         Random rand = new Random();
         if (botBoards.containsKey(s)) {
-            int pos = rand.nextInt(botBoards.get(s).size());
-            return botBoards.get(s).remove(pos);
+            int pos = botBoards.get(s).remove(rand.nextInt(botBoards.get(s).size()));
+            curStrings.add(s);
+            curPlaces.add(pos);
+            return pos;
         }
         else {
             createKey(s);
-            int pos = rand.nextInt(botBoards.get(s).size());
-            return botBoards.get(s).remove(pos);
+            int pos = botBoards.get(s).remove(rand.nextInt(botBoards.get(s).size()));
+            curStrings.add(s);
+            curPlaces.add(pos);
+            return pos;
         }
     }
 
     public void updateMap(int res) {
+        System.out.println(curPlaces);
+        System.out.println(curStrings);
         if (res == 0) {
             return;
         } else if (res == 1) {

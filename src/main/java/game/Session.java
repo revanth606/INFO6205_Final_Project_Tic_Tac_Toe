@@ -6,7 +6,7 @@ public class Session {
         Menace m = new Menace();
         Human h = new Human();
         Round r = new Round(m, h);
-        r.start();
+        m.updateMap(r.start());
     }
 
 }
