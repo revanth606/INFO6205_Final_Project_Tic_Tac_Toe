@@ -1,5 +1,8 @@
 package game;
 
+import java.util.ArrayList;
+import java.util.*;
+
 public class Round {
 
     private int[][] board;
@@ -22,6 +25,20 @@ public class Round {
         return state;
     }
 
+    public int chooseRandom(String s) {
+        Random r = new Random();
+        List<Integer> l = new ArrayList<>();
+        for (int i=0; i<9; i++) {
+            if (s.charAt(i)=='0') {
+                l.add(i);
+            }
+        }
+        if (l.size()==0) {
+            return -1;
+        }
+        return l.get(r.nextInt(l.size()));
+    }
+
     public void curboard() {
         for (int i=0; i<3; i++) {
             System.out.println(board[i][0]+" | "+board[i][1]+" | "+board[i][2]);
@@ -36,13 +53,11 @@ public class Round {
         }
         int i = pos/3;
         int j = pos%3;
-        for (int k=0; k<3; k++) {
-            if (board[i][0] == board[i][1] && board[i][1] == board[i][2]) {
-                return player;
-            }
-            if (board[0][j] == board[1][j] && board[1][j] == board[2][j]) {
-                return player;
-            }
+        if (board[i][0] == board[i][1] && board[i][1] == board[i][2]) {
+            return player;
+        }
+        if (board[0][j] == board[1][j] && board[1][j] == board[2][j]) {
+            return player;
         }
         if (Math.abs(i-j)==2 || i==j) {
             if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[1][1]==player) {
@@ -55,32 +70,50 @@ public class Round {
         return 0;
     }
 
-    public int start() {
-        curboard();
-        int p = 1;
+    public int start(int prob) {
+        Random r = new Random();
+        int t = 100;
+        int rand;
+        int a = r.nextInt(100);
+        int b = r.nextInt(100);
+        int p;
+        if (a>b) {
+            p = 1;
+        } else {
+            p = 2;
+        }
         int c = -1;
         String s = convertBoardtoString(board);
-        while (checkwin(c, p)==0) {
+        while (true) {
             if (p == 1) {
                 c = m.turn(s);
                 if (c==-1) {
                     return 0;
                 }
                 board[c / 3][c % 3] = 1;
-                p = 2;
                 s = convertBoardtoString(board);
+                if(checkwin(c, p)!=0) {
+                    return checkwin(c, p);
+                }
+                p = 2;
             } else {
-                c = h.turn(s);
+                rand = r.nextInt(100);
+                if (rand<100*prob) {
+                    c = h.turn(s);
+                } else {
+                    c = chooseRandom(s);
+                }
                 if (c==-1) {
                     return 0;
                 }
                 board[c / 3][c % 3] = 2;
-                p = 1;
                 s = convertBoardtoString(board);
+                if(checkwin(c, p)!=0) {
+                    return checkwin(c, p);
+                }
+                p = 1;
             }
-            curboard();
         }
-        return checkwin(c, p);
     }
 
 }

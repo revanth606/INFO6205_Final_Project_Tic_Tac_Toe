@@ -5,7 +5,12 @@ import java.util.*;
 public class Session {
 
     public static void main(String[] args) {
-        Menace m = new Menace();
+        int alpha = 100;
+        int beta = 3;
+        int gamma = 1;
+        int delta = 0;
+        double prob = 0.2;
+        Menace m = new Menace(alpha);
         Human h = new Human();
         List<Integer> mlist = new ArrayList<>();
         List<Integer> hlist = new ArrayList<>();
@@ -14,9 +19,10 @@ public class Session {
         int hc = 0;
         int dc = 0;
         int j;
+        m.outputs();
         for (int i = 0; i<100000; i++) {
             Round r = new Round(m, h);
-            j = r.start();
+            j = r.start((int) prob*100);
             if (j==0) {
                 dc++;
                 draw.add(i);
@@ -27,12 +33,10 @@ public class Session {
                 hc++;
                 hlist.add(i);
             }
-            m.updateMap(j);
+            m.updateMap(j, beta, gamma, delta);
         }
         System.out.println("M: "+mc+" H: "+hc+" D: "+dc);
-//        System.out.println(mlist);
-//        System.out.println(hlist);
-//        System.out.println(draw);
+        m.outputs();
     }
 
 }
