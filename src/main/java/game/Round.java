@@ -27,6 +27,7 @@ public class Round {
             System.out.println(board[i][0]+" | "+board[i][1]+" | "+board[i][2]);
             System.out.println("-----------");
         }
+        System.out.println("+++++++++++++++");
     }
 
     public int checkwin(int pos, int player) {

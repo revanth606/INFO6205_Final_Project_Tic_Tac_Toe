@@ -37,6 +37,9 @@ public class Menace {
     public int turn(String s) {
         Random rand = new Random();
         if (botBoards.containsKey(s)) {
+            if (botBoards.get(s).size()<=1) {
+                return botBoards.get(s).get(0);
+            }
             int pos = botBoards.get(s).remove(rand.nextInt(botBoards.get(s).size()));
             curStrings.add(s);
             curPlaces.add(pos);
@@ -52,10 +55,11 @@ public class Menace {
     }
 
     public void updateMap(int res) {
-        System.out.println(curPlaces);
-        System.out.println(curStrings);
-        if (res == 0) {
-            return;
+        if (res == 0) {int l = curPlaces.size();
+            for (int i=0; i<l; i++) {
+                curPlaces.remove(0);
+                curStrings.remove(0);
+            }
         } else if (res == 1) {
             int l = curPlaces.size();
             for (int i=0; i<l; i++) {
