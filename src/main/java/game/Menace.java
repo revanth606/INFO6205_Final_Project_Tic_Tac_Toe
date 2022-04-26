@@ -8,6 +8,10 @@ public class Menace {
     private List<String> curStrings = new ArrayList<>();
     private List<Integer> curPlaces = new ArrayList<>();
 
+    public void outputs() {
+        System.out.println(botBoards.size());
+    }
+
     public void createKey (String s) {
         List<Integer> pos = new ArrayList<>();
         List<Integer> places = new ArrayList<>();
@@ -18,13 +22,13 @@ public class Menace {
         }
         int l = pos.size();
         if (l==0) {
-            for (int i=0; i<50; i++) {
+            for (int i=0; i<2520; i++) {
                 places.add(-1);
             }
             botBoards.put(s, places);
             return;
         }
-        for (int i=0; i<50; i++) {
+        for (int i=0; i<(2520/l); i++) {
             int j=0;
             while (j<l) {
                 places.add(pos.get(j));
@@ -37,6 +41,9 @@ public class Menace {
     public int turn(String s) {
         Random rand = new Random();
         if (botBoards.containsKey(s)) {
+            if (botBoards.get(s).size()<=1) {
+                return botBoards.get(s).get(0);
+            }
             int pos = botBoards.get(s).remove(rand.nextInt(botBoards.get(s).size()));
             curStrings.add(s);
             curPlaces.add(pos);
@@ -51,24 +58,36 @@ public class Menace {
         }
     }
 
-    public void updateMap(int res) {
-        System.out.println(curPlaces);
-        System.out.println(curStrings);
-        if (res == 0) {
-            return;
+    public void updateMap(int res, int a, int b, int d) {
+        if (res == 0) {int l = curPlaces.size();
+            for (int i=0; i<l; i++) {
+                int j = 0;
+                while (j<d) {
+                    botBoards.get(curStrings.get(0)).add(curPlaces.get(0));
+                    j++;
+                }
+                curPlaces.remove(0);
+                curStrings.remove(0);
+            }
         } else if (res == 1) {
             int l = curPlaces.size();
             for (int i=0; i<l; i++) {
-                botBoards.get(curStrings.get(0)).add(curPlaces.get(0));
+                int j = 0;
+                while (j<b) {
+                    botBoards.get(curStrings.get(0)).add(curPlaces.get(0));
+                    j++;
+                }
                 curPlaces.remove(0);
                 curStrings.remove(0);
             }
         } else {
             int l = curPlaces.size();
             for (int i=0; i<l; i++) {
-                botBoards.get(curStrings.get(0)).add(curPlaces.get(0));
-                botBoards.get(curStrings.get(0)).add(curPlaces.get(0));
-                botBoards.get(curStrings.get(0)).add(curPlaces.get(0));
+                int j = 0;
+                while (j<a) {
+                    botBoards.get(curStrings.get(0)).add(curPlaces.get(0));
+                    j++;
+                }
                 curPlaces.remove(0);
                 curStrings.remove(0);
             }
