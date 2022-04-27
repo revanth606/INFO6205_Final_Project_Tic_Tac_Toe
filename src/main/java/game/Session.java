@@ -12,7 +12,38 @@ public class Session {
 
     private static final Logger logger = LogManager.getLogger(Session.class);
 
-    public void train(Menace m, Human h) {
+    public Session() {
+        h = new Human();
+    }
+
+    public Menace train(int alpha, int beta, int gamma, int delta, double p, int matches) {
+        m = new Menace(alpha);
+        int res;
+        int mc = 0; // Count of mathces won by Menace
+        int hc = 0; // Count of mathces won by Human
+        int dc = 0; // Count of mathces that are draw
+        for (int i = 0; i<matches; i++) {
+            Round r = new Round(m, h);
+            res = r.start((int) p*100);
+            if (res==0) {
+                dc++;
+//                draw.add(i);
+            } else if (res==1) {
+                mc++;
+//                mlist.add(i);
+            } else  {
+                hc++;
+//                hlist.add(i);
+            }
+            m.updateMap(res, beta, gamma, delta);
+//            if (i%10000==0) {
+                logger.info("M: "+mc+" H: "+hc+" D: "+dc);
+//            }
+        }
+        return m;
+    }
+
+    public void run(Menace m, Human h, int alpha, int beta, int gamma, int delta, double p) {
 
     }
 
@@ -22,36 +53,31 @@ public class Session {
         int gamma = 1;
         int delta = 0;
         double p = 0.1;
-        Menace m = new Menace(alpha);
-        Human h = new Human();
-        List<Integer> mlist = new ArrayList<>();
-        List<Integer> hlist = new ArrayList<>();
-        List<Integer> draw = new ArrayList<>();
-        int mc = 0;
-        int hc = 0;
-        int dc = 0;
-        int j;
-        m.outputs();
-        for (int i = 0; i<300000; i++) {
-            Round r = new Round(m, h);
-            j = r.start((int) p*100);
-            if (j==0) {
-                dc++;
-                draw.add(i);
-            } else if (j==1) {
-                mc++;
-                mlist.add(i);
-            } else  {
-                hc++;
-                hlist.add(i);
-            }
-            m.updateMap(j, beta, gamma, delta);
-            if (i%10000==0) {
-                logger.info("M: "+mc+" H: "+hc+" D: "+dc);
-            }
-        }
-        System.out.println("M: "+mc+" H: "+hc+" D: "+dc);
-        m.outputs();
+        int matches = 10000;
+        Session s = new Session();
+        s.m = s.train(alpha, beta, gamma, delta, p, matches);
+//        m.outputs();
+//        for (int i = 0; i<300000; i++) {
+//            Round r = new Round(s.m, h);
+//            j = r.start((int) p*100);
+//            if (j==0) {
+//                dc++;
+//                draw.add(i);
+//            } else if (j==1) {
+//                mc++;
+//                mlist.add(i);
+//            } else  {
+//                hc++;
+//                hlist.add(i);
+//            }
+//            m.updateMap(j, beta, gamma, delta);
+//            if (i%10000==0) {
+//                logger.info("M: "+mc+" H: "+hc+" D: "+dc);
+//            }
+//        }
+//        System.out.println("M: "+mc+" H: "+hc+" D: "+dc);
+//        m.outputs();
+
     }
 
 }
