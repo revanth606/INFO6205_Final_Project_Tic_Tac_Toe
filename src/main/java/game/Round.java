@@ -3,17 +3,23 @@ package game;
 import java.util.ArrayList;
 import java.util.*;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Round {
 
     public int[][] board;
     public Menace m;
     public Human h;
 
+    private static final Logger logger = LogManager.getLogger(Session.class);
+
     public Round(Menace m, Human h) {
         board = new int[3][3];
         this.m = m;
         this.h = h;
     }
+
 
     public String convertBoardtoString(int[][] board) {
         String state = "";
@@ -41,10 +47,12 @@ public class Round {
 
     public void curboard() {
         for (int i=0; i<3; i++) {
-            System.out.println(board[i][0]+" | "+board[i][1]+" | "+board[i][2]);
-            System.out.println("-----------");
+            logger.info(board[i][0]+" | "+board[i][1]+" | "+board[i][2]);
+            if (i<2) {
+                logger.info("-----------");
+            }
         }
-        System.out.println("+++++++++++++++");
+        logger.info("++++++++++++++++++");
     }
 
     public int checkwin(int pos, int player) {
@@ -70,7 +78,7 @@ public class Round {
         return 0;
     }
 
-    public int start(int prob) {
+    public int start(int prob, boolean bool) {
         Random r = new Random();
         int t = 100;
         int rand;
@@ -88,11 +96,13 @@ public class Round {
             if (p == 1) {
                 c = m.turn(s);
                 if (c==-1) {
+                    curboard();
                     return 0;
                 }
                 board[c / 3][c % 3] = 1;
                 s = convertBoardtoString(board);
                 if(checkwin(c, p)!=0) {
+                    curboard();
                     return checkwin(c, p);
                 }
                 p = 2;
@@ -104,14 +114,19 @@ public class Round {
                     c = chooseRandom(s);
                 }
                 if (c==-1) {
+                    curboard();
                     return 0;
                 }
                 board[c / 3][c % 3] = 2;
                 s = convertBoardtoString(board);
                 if(checkwin(c, p)!=0) {
+                    curboard();
                     return checkwin(c, p);
                 }
                 p = 1;
+            }
+            if (bool) {
+                curboard();
             }
         }
     }

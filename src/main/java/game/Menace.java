@@ -71,10 +71,38 @@ public class Menace {
         botBoards.put(s, places);
     }
 
+    public void createKey(String s, int c) {
+        List<Integer> pos = new ArrayList<>();
+        List<Integer> places = new ArrayList<>();
+        for (int i=0; i<s.length(); i++) {
+            if(s.charAt(i)=='0') {
+                pos.add(i);
+            }
+        }
+        int l = pos.size();
+        if (l==0) {
+            places.add(-1);
+            places.add(-1);
+            botBoards.put(s, places);
+            return;
+        }
+        for (int i=0; i<c; i++) {
+            int j=0;
+            while (j<l) {
+                places.add(pos.get(j));
+                j++;
+            }
+        }
+        botBoards.put(s, places);
+    }
+
     public int turn(String s) {
         Random rand = new Random();
         if (botBoards.containsKey(s)) {
-            if (botBoards.get(s).size()<=1) {
+            if (botBoards.get(s).size()==0) {
+                createKey(s, 1);
+            }
+            if (botBoards.get(s).size()==1) {
                 return botBoards.get(s).get(0);
             }
             int pos = botBoards.get(s).remove(rand.nextInt(botBoards.get(s).size()));
