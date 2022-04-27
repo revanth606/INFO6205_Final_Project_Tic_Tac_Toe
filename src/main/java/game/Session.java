@@ -7,8 +7,8 @@ import org.apache.logging.log4j.Logger;
 
 public class Session {
 
-    private Menace m;
-    private Human h;
+    public Menace m;
+    public Human h;
 
     private static final Logger logger = LogManager.getLogger(Session.class);
 
