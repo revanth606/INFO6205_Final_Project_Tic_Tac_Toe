@@ -1,6 +1,7 @@
 package game;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.*;
 
 public class Round {
 
@@ -22,6 +23,20 @@ public class Round {
             }
         }
         return state;
+    }
+
+    public int chooseRandom(String s) {
+        Random r = new Random();
+        List<Integer> l = new ArrayList<>();
+        for (int i=0; i<9; i++) {
+            if (s.charAt(i)=='0') {
+                l.add(i);
+            }
+        }
+        if (l.size()==0) {
+            return -1;
+        }
+        return l.get(r.nextInt(l.size()));
     }
 
     public void curboard() {
@@ -55,8 +70,10 @@ public class Round {
         return 0;
     }
 
-    public int start() {
+    public int start(int prob) {
         Random r = new Random();
+        int t = 100;
+        int rand;
         int a = r.nextInt(100);
         int b = r.nextInt(100);
         int p;
@@ -80,7 +97,12 @@ public class Round {
                 }
                 p = 2;
             } else {
-                c = h.turn(s);
+                rand = r.nextInt(100);
+                if (rand<100*prob) {
+                    c = h.turn(s);
+                } else {
+                    c = chooseRandom(s);
+                }
                 if (c==-1) {
                     return 0;
                 }
