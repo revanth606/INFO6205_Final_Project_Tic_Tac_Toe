@@ -2,14 +2,26 @@ package game;
 
 import java.util.*;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Session {
+
+    private Menace m;
+    private Human h;
+
+    private static final Logger logger = LogManager.getLogger(Session.class);
+
+    public void train(Menace m, Human h) {
+
+    }
 
     public static void main(String[] args) {
         int alpha = 10;
-        int beta = 16;
+        int beta = 4;
         int gamma = 1;
         int delta = 0;
-        double prob = 0.1;
+        double p = 0.1;
         Menace m = new Menace(alpha);
         Human h = new Human();
         List<Integer> mlist = new ArrayList<>();
@@ -22,7 +34,7 @@ public class Session {
         m.outputs();
         for (int i = 0; i<300000; i++) {
             Round r = new Round(m, h);
-            j = r.start((int) prob*100);
+            j = r.start((int) p*100);
             if (j==0) {
                 dc++;
                 draw.add(i);
@@ -35,7 +47,7 @@ public class Session {
             }
             m.updateMap(j, beta, gamma, delta);
             if (i%10000==0) {
-                System.out.println("M: "+mc+" H: "+hc+" D: "+dc);
+                logger.info("M: "+mc+" H: "+hc+" D: "+dc);
             }
         }
         System.out.println("M: "+mc+" H: "+hc+" D: "+dc);
