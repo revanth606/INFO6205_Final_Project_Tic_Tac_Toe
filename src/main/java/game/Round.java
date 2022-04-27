@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Round {
 
-    private int[][] board;
+    public int[][] board;
     public Menace m;
     public Human h;
 

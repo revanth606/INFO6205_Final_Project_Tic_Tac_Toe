@@ -13,6 +13,30 @@ public class Menace {
         a = alpha;
     }
 
+    public Map<String, List<Integer>> getBotBoards() {
+        return botBoards;
+    }
+
+    public void setBotBoards(Map<String, List<Integer>> botBoards) {
+        this.botBoards = botBoards;
+    }
+
+    public List<String> getCurStrings() {
+        return curStrings;
+    }
+
+    public void setCurStrings(List<String> curStrings) {
+        this.curStrings = curStrings;
+    }
+
+    public List<Integer> getCurPlaces() {
+        return curPlaces;
+    }
+
+    public void setCurPlaces(List<Integer> curPlaces) {
+        this.curPlaces = curPlaces;
+    }
+
     public void outputs() {
         System.out.println(botBoards.size());
 //        Set keys = botBoards.keySet();
@@ -68,11 +92,12 @@ public class Menace {
     }
 
     public void updateMap(int res, int b, int g, int d) {
-        if (res == 0) {int l = curPlaces.size();
+        if (res == 0) {
+            int l = curPlaces.size();
             for (int i=0; i<l; i++) {
                 int j = 0;
                 while (j<d) {
-                    botBoards.get(curStrings.get(0)).add(curPlaces.get(0));
+                    botBoards.get(curStrings.get(0)).remove(curPlaces.get(0));
                     j++;
                 }
                 curPlaces.remove(0);
@@ -82,7 +107,7 @@ public class Menace {
             int l = curPlaces.size();
             for (int i=0; i<l; i++) {
                 int j = 0;
-                while (j<b) {
+                while (j<d) {
                     botBoards.get(curStrings.get(0)).add(curPlaces.get(0));
                     j++;
                 }
@@ -93,7 +118,7 @@ public class Menace {
             int l = curPlaces.size();
             for (int i=0; i<l; i++) {
                 int j = 0;
-                while (j<a) {
+                while (j<g) {
                     botBoards.get(curStrings.get(0)).add(curPlaces.get(0));
                     j++;
                 }

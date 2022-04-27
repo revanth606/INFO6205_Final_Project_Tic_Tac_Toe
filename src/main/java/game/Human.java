@@ -6,6 +6,10 @@ public class Human {
 
     int[][] board;
 
+    public Human() {
+        board = new int[3][3];
+    }
+
     public int[][] convertStringtoBoard(String s) {
         int[][] b = new int[3][3];
         for (int i=0; i<3; i++) {
@@ -22,13 +26,11 @@ public class Human {
         }
         int i = pos/3;
         int j = pos%3;
-        for (int k=0; k<3; k++) {
-            if (board[i][0] == board[i][1] && board[i][1] == board[i][2]) {
-                return player;
-            }
-            if (board[0][j] == board[1][j] && board[1][j] == board[2][j]) {
-                return player;
-            }
+        if (board[i][0] == board[i][1] && board[i][1] == board[i][2]) {
+            return player;
+        }
+        if (board[0][j] == board[1][j] && board[1][j] == board[2][j]) {
+            return player;
         }
         if (Math.abs(i-j)==2 || i==j) {
             if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[1][1]==player) {
@@ -325,16 +327,16 @@ public class Human {
         }
 
         // Rule 6
-        if (s.charAt(0) == '2' && s.charAt(8) == '0') {
+        if (s.charAt(0) == '1' && s.charAt(8) == '0') {
             return 8;
         }
-        if (s.charAt(2) == '2' && s.charAt(6) == '0') {
+        if (s.charAt(2) == '1' && s.charAt(6) == '0') {
             return 6;
         }
-        if (s.charAt(6) == '2' && s.charAt(2) == '0') {
+        if (s.charAt(6) == '1' && s.charAt(2) == '0') {
             return 2;
         }
-        if (s.charAt(8) == '2' && s.charAt(0) == '0') {
+        if (s.charAt(8) == '1' && s.charAt(0) == '0') {
             return 0;
         }
 
