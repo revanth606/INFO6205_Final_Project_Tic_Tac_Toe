@@ -2,5 +2,6 @@
 
 * Built using maven project in Intellij
 * Clone the repo, build the repo as maven project.
+* Used openjdk17 as interpreter.
 * Run the src/main/java/game/session.java
 * You can view the training outcome and the live game printed as logs
