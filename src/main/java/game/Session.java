@@ -16,6 +16,7 @@ public class Session {
         h = new Human();
     }
 
+    // Trains menace by taking all the inputs
     public Menace train(int alpha, int beta, int gamma, int delta, double p, int matches) {
         m = new Menace(alpha);
         int res;
@@ -33,11 +34,13 @@ public class Session {
                 hc++;
             }
             m.updateMap(res, beta, gamma, delta);
-                logger.info("Win: "+mc+" Loss: "+hc+" Draw: "+dc+" Alpha: "+alpha+" Beta: "+beta+" Gamma: "+gamma+" Delta: "+delta+" p*: "+p);
+
         }
+        logger.info("Win: "+mc+" Loss: "+hc+" Draw: "+dc+" Alpha: "+alpha+" Beta: "+beta+" Gamma: "+gamma+" Delta: "+delta+" p*: "+p);
         return m;
     }
 
+    // Uses the trained menace with all the inputs
     public void play(Menace m, Human h, int alpha, int beta, int gamma, int delta, double p, int matches) {
         int res;
         int mc = 0; // Count of mathces won by Menace
@@ -58,15 +61,15 @@ public class Session {
     }
 
     public static void main(String[] args) {
-        int alpha = 10;
-        int beta = 16;
+        int alpha = 5;
+        int beta = 8;
         int gamma = 1;
-        int delta = 16;
-        double p = 0.1;
+        int delta = 32;
+        double p = 0.9;
         int matches = 10000;
         Session s = new Session();
         s.m = s.train(alpha, beta, gamma, delta, p, matches);
-        matches = 1000;
+        matches = 100;
         p = 0.9;
         s.play(s.m, s.h, alpha, beta, gamma, delta, p, matches);
     }

@@ -17,6 +17,7 @@ public class Menace {
         return botBoards;
     }
 
+    // creates key with a list of all possible values when the map encounters a new state
     public void createKey (String s) {
         List<Integer> pos = new ArrayList<>();
         List<Integer> places = new ArrayList<>();
@@ -42,6 +43,7 @@ public class Menace {
         botBoards.put(s, places);
     }
 
+    // creates key with a list of all possible values without duplicates when the map encounters a new state
     public void createKey(String s, int c) {
         List<Integer> pos = new ArrayList<>();
         List<Integer> places = new ArrayList<>();
@@ -67,6 +69,7 @@ public class Menace {
         botBoards.put(s, places);
     }
 
+    // Takes in current state of the game as string and returns a int which represents where the next move is to placed
     public int turn(String s) {
         Random rand = new Random();
         if (botBoards.containsKey(s)) {
@@ -90,6 +93,7 @@ public class Menace {
         }
     }
 
+    // updates map after the match is completed depending on the result of the map
     public void updateMap(int res, int b, int g, int d) {
         if (res == 0) {
             int l = curPlaces.size();

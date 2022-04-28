@@ -10,6 +10,7 @@ public class Human {
         board = new int[3][3];
     }
 
+    // takes in current state of the game as string and converts it to 2D array
     public int[][] convertStringtoBoard(String s) {
         int[][] b = new int[3][3];
         for (int i=0; i<3; i++) {
@@ -20,6 +21,7 @@ public class Human {
         return b;
     }
 
+    // takes the current game and return a integer value after checking the match win condition
     public int checkwin(int pos, int player) {
         if (pos == -1) {
             return 0;
@@ -43,6 +45,7 @@ public class Human {
         return 0;
     }
 
+    //  takes in current state of the game as string and return a integer based on the optimal human strategy
     public int turn(String s) {
 
         board = convertStringtoBoard(s);

@@ -20,7 +20,7 @@ public class Round {
         this.h = h;
     }
 
-
+    // converts the 2D array format of current state of game to string to make it easier to store it as key in the map
     public String convertBoardtoString(int[][] board) {
         String state = "";
         for (int i=0; i<3; i++) {
@@ -31,6 +31,7 @@ public class Round {
         return state;
     }
 
+    // chooses a random position in all possible positions for human
     public int chooseRandom(String s) {
         Random r = new Random();
         List<Integer> l = new ArrayList<>();
@@ -45,6 +46,7 @@ public class Round {
         return l.get(r.nextInt(l.size()));
     }
 
+    // logs current state of the game
     public void curboard() {
         for (int i=0; i<3; i++) {
             logger.info(board[i][0]+" | "+board[i][1]+" | "+board[i][2]);
@@ -55,6 +57,7 @@ public class Round {
         logger.info("++++++++++++++++++");
     }
 
+    // checks the win conditions
     public int checkwin(int pos, int player) {
         if (pos == -1) {
             return 0;
@@ -78,6 +81,7 @@ public class Round {
         return 0;
     }
 
+    // Starts a new game till it ends and returns a value based on the winning party or draw
     public int start(int prob, boolean bool) {
         Random r = new Random();
         int t = 100;
