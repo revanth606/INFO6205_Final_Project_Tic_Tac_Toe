@@ -17,35 +17,6 @@ public class Menace {
         return botBoards;
     }
 
-    public void setBotBoards(Map<String, List<Integer>> botBoards) {
-        this.botBoards = botBoards;
-    }
-
-    public List<String> getCurStrings() {
-        return curStrings;
-    }
-
-    public void setCurStrings(List<String> curStrings) {
-        this.curStrings = curStrings;
-    }
-
-    public List<Integer> getCurPlaces() {
-        return curPlaces;
-    }
-
-    public void setCurPlaces(List<Integer> curPlaces) {
-        this.curPlaces = curPlaces;
-    }
-
-    public void outputs() {
-        System.out.println(botBoards.size());
-//        Set keys = botBoards.keySet();
-//        Iterator i = keys.iterator();
-//        while(i.hasNext()) {
-//            System.out.println(botBoards.get(i.next()).size());
-//        }
-    }
-
     public void createKey (String s) {
         List<Integer> pos = new ArrayList<>();
         List<Integer> places = new ArrayList<>();
